@@ -47,14 +47,14 @@ io.on("connection", (socket: Socket) => {
     socket.broadcast.emit("browser-connected", { uuid });
   });
 
-  socket.on("browser-requires-stream", ({cameraId, streamName}) => {
-    console.log('browser requires stream', streamName)
-    socket.broadcast.emit(`browser-requires-stream-${cameraId}`, {streamName});
+  socket.on("browser-requires-stream", ({cameraId, streamName, sessionUuid}) => {
+    console.log('browser requires stream', streamName, sessionUuid)
+    socket.broadcast.emit(`browser-requires-stream-${cameraId}`, {streamName, sessionUuid});
   });
 
-  socket.on("pi-offers-stream", ({cameraId, share, pwd}) => {
+  socket.on("pi-offers-stream", ({cameraId, share, pwd, sessionUuid}) => {
     console.log('pi-offers-stream', cameraId);
-    socket.broadcast.emit(`pi-offers-stream-${cameraId}`, {cameraId, share, pwd});
+    socket.broadcast.emit(`pi-offers-stream-${cameraId}-${sessionUuid}`, {cameraId, share, pwd});
   });
 });
 
